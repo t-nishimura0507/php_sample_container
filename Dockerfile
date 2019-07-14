@@ -32,7 +32,7 @@ COPY ./src /var/www/html/
 # Set httpd
 COPY ./config/httpd.conf /etc/apache2/httpd.conf
 COPY ./config/ca /etc/apache2/ca
-COPY ./config/kakunin-virtual-host.conf /etc/apache2/kakunin-virtual-host.conf
+COPY ./config/virtual-host.conf /etc/apache2/virtual-host.conf
 
 # Set php.ini
 COPY ./config/php.ini /usr/local/etc/php.ini-development

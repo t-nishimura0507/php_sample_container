@@ -1,8 +1,8 @@
-# php_container
+# php_web_container_alpine
 
 # Overview
 
-Amazon Linux, Apache, PHP 5.6, Composer を実装するコンテナ環境を構築
+Alpine Linux, Apache, PHP 7.3, Composer を実装するコンテナ環境を構築
 
 # Description
 
@@ -23,7 +23,7 @@ php_container
 
 ```
 ＃ コンテナビルド
-docker build -t php_container_alpine .
+docker build -t php_container_alpine:latest .
 
 ＃ コンテナ起動
 docker run --name php_container_alpine -d -p 80:80 -p 443:443 php_container_alpine:latest
@@ -36,3 +36,5 @@ hosts 設定
 ```
 
 ブラウザで `http://nisimu.com` の表示を確認
+
+※ドメイン名は、virtual-host.conf にで適宜設定

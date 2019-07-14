@@ -1,0 +1,8 @@
+Options Indexes FollowSymLinks
+php_value include_path ".:/var/www/html/php_web_module"
+
+php_value display_startup_errors off
+php_flag display_errors off
+
+#RewriteEngine On
+#RewriteRule ^[^_][^\.]+$   /index.php
