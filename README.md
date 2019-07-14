@@ -7,7 +7,7 @@ Alpine Linux, Apache, PHP 7.3, Composer を実装するコンテナ環境を構�
 # Description
 
 ```
-php_container
+php_web_container_alpine
 ├ config
 │ ├ ca                // SSL証明書（オレオレ）
 │ │ ├ server.crt
