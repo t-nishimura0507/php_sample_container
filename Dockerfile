@@ -1,29 +1,33 @@
 # Create Apache & PHP 7.3 & Alpine Container.
-FROM php:7.3.6-zts-alpine3.9
+FROM alpine:3.10.1
 
 RUN apk update \
-    && apk add --no-cache apache2-ssl=2.4.39-r0 \
-    php7-apache2=7.2.19-r0 \
-    php7-json=7.2.19-r0 \
-    php7-curl=7.2.19-r0 \
-    php7-mbstring=7.2.19-r0 \
-    libpng-dev=1.6.37-r0 \
+    && apk add --no-cache \
+    # PHPライブラリ管理ツール
+    composer=1.8.6-r0 \
+    # Cで書かれた画像処理ライブラリ(公的書類画像処理に必要)
+    imagemagick=7.0.8.58-r0 \
+    # gdでpngをサポートする為に必要
+    libpng=1.6.37-r1 \
+    # gdでjpegをサポートする為に必要
     libjpeg=8-r6 \
-    libxml2-dev=2.9.9-r1 \
-    autoconf=2.69-r2 \
-    g++=8.3.0-r0 \
-    imagemagick-dev=7.0.8.44-r0 \
-    libtool=2.4.6-r5 \
-    make=4.2.1-r2 \
-    pcre-dev=8.42-r1 \
-    php7-pecl-apcu=5.1.16-r0 \
-    php7-pecl-imagick=3.4.3-r9 \
-    php7-gd=7.2.19-r0 \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && rm -rf /tmp/* /var/cache/apk/*
+    # PCRE関数(正規表現処理に必要)
+    pcre=8.43-r0 \
+    # PHP, Apache
+    php7-apache2=7.3.9-r0 \
+    # curl(APIリクエストに必要)
+    php7-curl=7.3.9-r0 \
+    # 画像リサイズに必須(画像upload時にgetimagesize()で使用)
+    php7-gd=7.3.9-r0 \
+    # ImageMagickをPHPから操作する為の拡張モジュール
+    php7-pecl-imagick=3.4.4-r1 \
+    # デバッグ用拡張モジュール
+    php7-pecl-xdebug=2.7.2-r1 \
+    # PEARモジュール(composer管理のライブラリが依存)
+    php7-pear=7.3.9-r0 \
+    # XML用拡張モジュール(composer管理のライブラリが依存)
+    php7-simplexml=7.3.9-r0 \
+  && rm -rf /tmp/* /var/cache/apk/*
 
 
 # COPY PHP Modules.
@@ -45,7 +49,6 @@ ENV COMPOSER_NO_INTERACTION 1
 WORKDIR /usr/local/bin
 RUN curl -sS https://getcomposer.org/installer | php
 
-EXPOSE 443
 EXPOSE 80
 
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
