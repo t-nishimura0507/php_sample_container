@@ -14,19 +14,21 @@ RUN apk update \
     # PCRE関数(正規表現処理に必要)
     pcre=8.43-r0 \
     # PHP, Apache
-    php7-apache2=7.3.9-r0 \
+    php7-apache2=7.3.11-r0 \
     # curl(APIリクエストに必要)
-    php7-curl=7.3.9-r0 \
+    php7-curl=7.3.11-r0 \
     # 画像リサイズに必須(画像upload時にgetimagesize()で使用)
-    php7-gd=7.3.9-r0 \
+    php7-gd=7.3.11-r0 \
     # ImageMagickをPHPから操作する為の拡張モジュール
     php7-pecl-imagick=3.4.4-r1 \
     # デバッグ用拡張モジュール
     php7-pecl-xdebug=2.7.2-r1 \
     # PEARモジュール(composer管理のライブラリが依存)
-    php7-pear=7.3.9-r0 \
+    php7-pear=7.3.11-r0 \
     # XML用拡張モジュール(composer管理のライブラリが依存)
-    php7-simplexml=7.3.9-r0 \
+    php7-simplexml=7.3.11-r0 \
+    # composer(PHP package manager.)
+    composer=1.8.6-r0 \
   && rm -rf /tmp/* /var/cache/apk/*
 
 
@@ -39,15 +41,11 @@ COPY ./config/ca /etc/apache2/ca
 COPY ./config/virtual-host.conf /etc/apache2/virtual-host.conf
 
 # Set php.ini
-COPY ./config/php.ini /usr/local/etc/php.ini-development
-COPY ./config/php.ini /usr/local/etc/php.ini-production
+COPY ./config/php.ini /etc/php7/php.ini
 
 # Install Composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_NO_INTERACTION 1
-
-WORKDIR /usr/local/bin
-RUN curl -sS https://getcomposer.org/installer | php
 
 EXPOSE 80
 
