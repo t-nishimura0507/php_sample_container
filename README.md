@@ -7,7 +7,7 @@ Alpine Linux, Apache, PHP 7.3, Composer を実装するコンテナ環境を構�
 # Description
 
 ```
-php_web_container_alpine
+php_sample_container
 ├ config
 │ ├ ca                // SSL証明書（オレオレ）
 │ │ ├ server.crt
@@ -23,18 +23,18 @@ php_web_container_alpine
 
 ```
 ＃ コンテナビルド
-docker build -t php_container_alpine:latest .
+docker build -t php_sample_container:latest .
 
 ＃ コンテナ起動
-docker run --name php_container_alpine -d -p 80:80 -p 443:443 php_container_alpine:latest
+docker run --name php_sample_container -d -p 80:80 -p 443:443 php_sample_container:latest
 ```
 
 hosts 設定
 
 ```
-127.0.0.1 nishimu.com
+127.0.0.1 php-sample.com
 ```
 
-ブラウザで `http://nisimu.com` の表示を確認
+ブラウザで `http://php-sample.com` の表示を確認
 
 ※ドメイン名は、virtual-host.conf にで適宜設定
