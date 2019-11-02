@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  php_sample:
+    container_name: php_sample_container
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html/
